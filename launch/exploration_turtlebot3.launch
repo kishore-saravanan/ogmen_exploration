@@ -1,0 +1,11 @@
+<launch>
+    <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_house.launch" />
+    <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch">
+        <arg name="slam_methods" value="gmapping"/>
+    </include>
+    <include file="$(find turtlebot3_navigation)/launch/move_base.launch" />
+    <node pkg="ogmen_exploration" type="ogmen_exploration_node" respawn="false" name="explore" output="screen">
+        <rosparam command="load" file="$(find ogmen_exploration)/config/params.yaml"/>
+        <remap from="costmap" to="/map"/>
+    </node>
+</launch>
